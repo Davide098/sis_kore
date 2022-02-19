@@ -23,7 +23,7 @@ int main()
             handle_error("pthread_create")
         }
     }
-    /* join dei thread. */
+    /*join dei thread*/
     for (long int i = 0; i < NUMERO_CONSUMATORI; i++)
     {
         if (pthread_join(consumatori[i], NULL) != 0)
