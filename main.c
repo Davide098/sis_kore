@@ -8,6 +8,7 @@
 #include <stdatomic.h>
 #include <pthread.h>
 #include "main.h"
+
 int contenitori[NUMERO_CONTENITORI];
 pthread_mutex_t mutexes[NUMERO_CONTENITORI]; // mutex dei contenitori
 int fd_pipe;
@@ -31,6 +32,7 @@ int main()
             handle_error("pthread_create")
         }
     }
+    
     /*join dei thread*/
     for (long int i = 0; i < NUMERO_CONSUMATORI; i++)
     {

@@ -1,0 +1,8 @@
+#! /bin/bash 
+
+gcc -o main main.c -Wall -pthread
+gcc -o logger logger.c -Wall -pthread
+
+mkfifo /tmp/my_pipe
+
+./main & ./logger
