@@ -31,7 +31,11 @@ int main()
             handle_error("pthread_join");
         }
     }
-    printf("%d", contenitori[0]);
+    for (int i = 0; i < NUMERO_CONTENITORI; i++)
+    {
+        printf("Contenitore[%d] = %d\n", i, contenitori[i]);
+    }
+
     return 0;
 }
 
@@ -41,7 +45,6 @@ int qta_bevanda_per_cocktail = 5;
 void consumatore_thread(long *id)
 {
     printf("THREAD INIZIA %ld\n", (long)id);
-    sleep((rand() % 3) / 1.0f);
 
     // contenitore alcol tra 0 e 1
     int alcol = rand() % 2;
@@ -56,7 +59,7 @@ void consumatore_thread(long *id)
     if (contenitori[alcol] < qta_alcol_per_cocktail)
     {
         riempi_contenitore(alcol);
-        printf("Thread %ld ha finito \n\tALCOL: %d\n", (long)id, alcol);
+        printf("Thread %ld ha fatto riempire \n\tALCOL: %d\n", (long)id, alcol);
     }
     contenitori[alcol] -= qta_alcol_per_cocktail;
     pthread_mutex_unlock(&mutexes[alcol]);
@@ -67,8 +70,10 @@ void consumatore_thread(long *id)
     }
 
     if (contenitori[bevanda] < qta_bevanda_per_cocktail)
-
+    {
         riempi_contenitore(bevanda);
+        printf("Thread %ld ha fatto riempire \n\tBEVANDA: %d\n", (long)id, bevanda);
+    }
 
     contenitori[bevanda] -= qta_bevanda_per_cocktail;
     pthread_mutex_unlock(&mutexes[bevanda]);
